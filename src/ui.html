@@ -1,0 +1,181 @@
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p&family=M+PLUS+Rounded+1c&family=Noto+Sans+JP&family=Noto+Serif+JP&family=Sawarabi+Gothic&family=Sawarabi+Mincho&display=swap" rel="stylesheet">
+<div id="list"></div>
+<style>
+  * {
+    font-family: sans-serif;
+    color: #424347;
+  }
+  body {
+    padding: 0;
+    margin: 0;
+  }
+  p {
+    margin: 0;
+  }
+
+  #list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .row {
+    background-color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 8px 12px;
+  }
+  .row > p {
+    text-align: left;
+  }
+
+  .row:hover {
+    background-color: #e5e5e5;
+  }
+  .row:not(:last-child) {
+    border-bottom: 1px solid #e5e5e5;
+  }
+  
+  .example-text {
+    font-size: 14px;
+    color: #151533;
+    margin-bottom: 4px;
+  }
+
+  .family-text {
+    font-size: 12px;
+    color: #666;
+  }
+</style>
+<script>
+const fonts = [
+{
+  family: "Noto Sans JP",
+  japaneseTitle: "Noto Sans JP"
+},
+// {
+//   family: "DotGothic16",
+//   japaneseTitle: "DotGothic16"
+// },
+// {
+//   family: "RocknRoll One",
+//   japaneseTitle: "RocknRoll One"
+// },
+{
+  family: "Noto Serif JP",
+  japaneseTitle: "Noto Serif JP"
+},
+{
+  family: "YuGothic",
+  japaneseTitle: "游ゴシック"
+},
+{
+  family: "YuKyokasho",
+  japaneseTitle: "YuKyokasho"
+},
+{
+  family: "YuKyokasho Yoko",
+  japaneseTitle: "YuKyokasho Yoko"
+},
+{
+  family: "YuMincho",
+  japaneseTitle: "YuMincho"
+},
+{
+  family: "Hiragino Kaku Gothic Pro",
+  japaneseTitle: "Hiragino Kaku Gothic Pro"
+},
+{
+  family: "Hiragino Maru Gothic Pro",
+  japaneseTitle: "Hiragino Maru Gothic Pro"
+},
+{
+  family: "Hiragino Mincho Pro",
+  japaneseTitle: "Hiragino Mincho Pro"
+},
+{
+  family: "Hiragino Sans",
+  japaneseTitle: "Hiragino Sans"
+},
+// {
+//   family: "Stick",
+//   japaneseTitle: "Stick"
+// },
+// {
+//   family: "Shippori Mincho",
+//   japaneseTitle: "Shippori Mincho"
+// },
+{
+  family: "Mplus 1p",
+  japaneseTitle: "M PLUS 1p"
+},
+// {
+//   family: "Shippori Mincho B1",
+//   japaneseTitle: "Shippori Mincho B1"
+// },{
+//   family: "Mplus Rounded 1c",
+//   japaneseTitle: "M PLUS Rounded 1c"
+// }
+,{
+  family: "Sawarabi Mincho",
+  japaneseTitle: "Sawarabi Mincho"
+}
+,{
+  family: "Sawarabi Gothic",
+  japaneseTitle: "Sawarabi Gothic"
+}
+// ,{
+//   family: "Nikukyu",
+//   japaneseTitle: "Nikukyu"
+// },{
+//   family: "Nico Moji",
+//   japaneseTitle: "Nico Moji"
+// }
+// ,{
+//   family: "Kosugi Maru",
+//   japaneseTitle: "Kosugi Maru"
+// }
+// ,{
+//   family: "Reggae One",
+//   japaneseTitle: "Reggae One"
+// }
+// ,{
+//   family: "Kosugi",
+//   japaneseTitle: "Kosugi"
+// }
+// ,{
+//   family: "Yusei Magic",
+//   japaneseTitle: "Yusei Magic"
+// }
+// ,{
+//   family: "Potta One",
+//   japaneseTitle: "Potta One"
+// }
+// ,{
+//   family: "Hachi Maru Pop",
+//   japaneseTitle: "Hachi Maru Pop"
+// }
+]
+
+fonts.forEach((font) => {
+  const containerEl = document.createElement("button");
+  const titleEl = document.createElement("p")
+
+  titleEl.innerHTML = "例文のテキストです。"
+  titleEl.style.fontFamily = font.family
+  titleEl.classList.add("example-text")
+
+  const familyTextEl = document.createElement("p")
+  familyTextEl.innerHTML = font.family
+  familyTextEl.classList.add("family-text")
+  containerEl.appendChild(titleEl)
+  containerEl.appendChild(familyTextEl)
+  containerEl.classList.add("row")
+  containerEl.addEventListener("click", () => {
+    parent.postMessage({ pluginMessage: { type: 'set-font', data: font.family } }, '*')
+  })
+
+  document.getElementById("list").appendChild(containerEl)
+})
+
+</script>
