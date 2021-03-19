@@ -157,25 +157,38 @@ const fonts = [
 // }
 ]
 
-fonts.forEach((font) => {
+function constructFontRowElement(fontFamily) {
   const containerEl = document.createElement("button");
   const titleEl = document.createElement("p")
 
   titleEl.innerHTML = "例文のテキストです。"
-  titleEl.style.fontFamily = font.family
+  titleEl.style.fontFamily = fontFamily
   titleEl.classList.add("example-text")
 
   const familyTextEl = document.createElement("p")
-  familyTextEl.innerHTML = font.family
+  familyTextEl.innerHTML = fontFamily
   familyTextEl.classList.add("family-text")
   containerEl.appendChild(titleEl)
   containerEl.appendChild(familyTextEl)
   containerEl.classList.add("row")
   containerEl.addEventListener("click", () => {
-    parent.postMessage({ pluginMessage: { type: 'set-font', data: font.family } }, '*')
+    parent.postMessage({ pluginMessage: { type: 'set-font', data: fontFamily } }, '*')
   })
 
-  document.getElementById("list").appendChild(containerEl)
+  return containerEl
+} 
+
+fonts.forEach((font) => {
+  const rowEl = constructFontRowElement(font.family)
+  document.getElementById("list").appendChild(rowEl)
 })
+
+onmessage = (event) => {
+  const installedJapaneseFonts = event.data.pluginMessage
+  installedJapaneseFonts.forEach((font) => {
+    const rowEl = constructFontRowElement(font.fontName.family)
+    document.getElementById("list").appendChild(rowEl)
+  })
+}
 
 </script>
